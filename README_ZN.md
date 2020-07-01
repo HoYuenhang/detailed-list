@@ -1,19 +1,19 @@
 # detailed-list
 ![DetailedList](https://img.shields.io/badge/DetailedList-1.0.0-orange)
-## What is it？
-A simple detailed-list.Help you remember trivia of live.
+## 这是什么？
+一个简单的任务清单帮你记录生活的琐事。
 ## Demo
-### Desktop UI
+### 桌面界面
 ![](https://s1.ax1x.com/2020/07/01/NTh6ns.png)
-### Mobile UI
+### 移动界面
 ![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
-## How to use？
-1. A server and MySQL is necessary.
-2. Create a database named **detailed-list**.
+## 如何使用？
+1. 电脑中需要安装本地服务器和MySQL。
+2. 创建一个叫做**detailed-list**的数据库。
 ```MySQL
 CREATE DATABASE detailed_list charset=utf8;
 ```
-3. Create a table named **project** on detailed-list.
+3. 在detailed-list数据库里创建一个叫做**project**的表。
 ```MySQL
 CREATE TABLE project(
     id int PRIMARY KEY auto_increment,
@@ -22,6 +22,6 @@ CREATE TABLE project(
     pub_time INT NOT NULL COMMENT '时间戳'
 )charset utf8;
 ```
-4. Enter directory ```detail-list/php/```, open```database_login.php```, modify the ```MySQL address:port```, MySQL ```user``` and ```password```.
+4. 进入项目目录```detail-list/php/```, 打开```database_login.php```, 修改```MySQL address:port```, MySQL ```user``` 和 ```password```。
 ![](https://s1.ax1x.com/2020/07/01/NTTBOe.jpg)
-5. Input the localhost address in your browser.
+5. 在浏览器中输入localhost的地址即可访问。
