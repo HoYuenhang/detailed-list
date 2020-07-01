@@ -1,5 +1,9 @@
 # detailed-list
+
 ![DetailedList](https://img.shields.io/badge/DetailedList-1.0.0-orange)
+
+English | [中文](https://github.com/Jackie1123/detailed-list/blob/master/README_ZN.md)（同步更新）
+
 ## What is it？
 A simple detailed-list.Help you remember trivia of live.
 ## Demo
