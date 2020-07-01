@@ -4,9 +4,9 @@
 A simple detailed-list.Help you remember trivia of live.
 ## Demo
 ### Desktop UI
-![](https://s1.ax1x.com/2020/07/01/NTh6ns.md.png)
+![](https://s1.ax1x.com/2020/07/01/NTh6ns.png)
 ### Mobile UI
-![](https://s1.ax1x.com/2020/07/01/NThcBn.md.jpg)
+![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
 ## How to use？
 1. A server and MySQL is necessary.
 2. Create a database named **detailed-list**.
