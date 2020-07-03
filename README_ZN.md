@@ -13,11 +13,11 @@
 ![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
 ## 如何使用？
 1. 电脑中需要安装本地服务器和MySQL。
-2. 创建一个叫做**detailed-list**的数据库。
+2. 创建一个叫做**detailed_list**的数据库。
 ```MySQL
 CREATE DATABASE detailed_list charset=utf8;
 ```
-3. 在detailed-list数据库里创建一个叫做**project**的表。
+3. 在detailed_list数据库里创建一个叫做**project**的表。
 ```MySQL
 CREATE TABLE project(
     id int PRIMARY KEY auto_increment,

@@ -13,11 +13,11 @@ A simple detailed-list.Help you remember trivia of live.
 ![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
 ## How to use？
 1. A server and MySQL is necessary.
-2. Create a database named **detailed-list**.
+2. Create a database named **detailed_list**.
 ```MySQL
 CREATE DATABASE detailed_list charset=utf8;
 ```
-3. Create a table named **project** on detailed-list.
+3. Create a table named **project** on detailed__list.
 ```MySQL
 CREATE TABLE project(
     id int PRIMARY KEY auto_increment,
