@@ -17,7 +17,7 @@ A simple detailed-list.Help you remember trivia of live.
 ```MySQL
 CREATE DATABASE detailed_list charset=utf8;
 ```
-3. Create a table named **project** on detailed__list.
+3. Create a table named **project** on detailed_list.
 ```MySQL
 CREATE TABLE project(
     id int PRIMARY KEY auto_increment,
