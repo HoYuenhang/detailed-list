@@ -1,7 +1,7 @@
 <?php
 
 // 删除项目：删除list
-
+include_once 'utils.php';
 // 登录数据库
 include_once 'database_login.php';
 
@@ -41,7 +41,4 @@ if ($delete_list) {
 }
 
 // 跳转回主页
-$url = '../index.php';
-if ($url) {
-    header("location: $url");
-}
+back2index();

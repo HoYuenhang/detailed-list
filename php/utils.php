@@ -28,3 +28,11 @@ function count_rows($link)
 // echo $rows;
     return $rows;
 }
+
+// 跳转回主页
+function back2index()
+{
+    $url = '../index.php';
+    header("location: $url");
+
+}
