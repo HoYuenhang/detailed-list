@@ -28,7 +28,7 @@
                         是一个清单呀
                     </div>
                 </fieldset>
-                <form method="POST" action="php/insert.php" onsubmit="return isNull()">
+                <form method="POST" action="php/insert.php">
                     <div class="layui-row">
                         <div class="layui-col-xs9 layui-col-sm9">
                             <input onmouseover="this.focus()" onfocus="this.select()"
@@ -73,7 +73,8 @@ include_once 'php/return_finished.php';
             </div>
         </div>
     </div>
-    <!-- <div style="color:gray;text-align: center;">服务器运行时间 10：00-次晨0：00<br>小K同學 <i style="padding: 0;" class="layui-icon layui-icon-heart-fill"></i> Cactus</div> -->
+    <div style="color:gray;text-align: center;">服务器运行时间 10：00-次晨 0：00</div>
+    <!-- <br>小K同學 <i style="padding: 0;" class="layui-icon layui-icon-heart-fill"></i> Cactus -->
 
 
     <script src="layui/layui.js"></script>
