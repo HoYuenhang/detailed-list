@@ -13,14 +13,6 @@ if (time < 12) {
 if (time < 5) {
     document.getElementById("title").innerHTML = "清单 | Stay up late again";
 }
-//title问候语结束
-
-// 新建
-$('.new-btn').click(function(e) {
-
-})
-
-// 君と一緒にやりたい事
 
 // 检测输入框是否为空
 $('.new-btn').click(function(e) {
