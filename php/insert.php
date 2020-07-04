@@ -3,13 +3,22 @@
 // 插入项目：新建list
 
 header('Content-type:text/html;charset:utf-8');
+include_once 'utils.php';
 
 // 登录数据库
 include_once 'database_login.php';
 
 //拿到前端传入的文本
 var_dump($_POST);
-$new_project = $_POST['new_project'];
+$new_project = isset($_POST['new_project']) ? trim($_POST['new_project']) : '';
+
+// 数据合法性验证：内容均不能为空
+if (empty($new_project)) {
+    //提示同时回到提交页面
+    header('Refresh:2;url=../index.php'); //header前不能有输出
+    // 阻止脚本进行
+    exit('内容不能为空！');
+}
 
 // 插入数据
 $public_time = time();
@@ -32,7 +41,4 @@ if ($new_project == $check_finished['content']) {
 }
 
 // 跳转回主页
-$url = '../index.php';
-if ($url) {
-    header("location: $url");
-}
+// back2index();
