@@ -41,4 +41,4 @@ if ($new_project == $check_finished['content']) {
 }
 
 // 跳转回主页
-// back2index();
+back2index();
