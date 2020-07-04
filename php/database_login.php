@@ -1,20 +1,39 @@
 <?php
-header('Content-type:text/html;charset:utf-8');
 
-// 做数据库初始化
+// php操作mysql公共文件
 
-// 连接认证
-$link = mysqli_connect('localhost:3306', 'root', 'H*****319');
-if (!$link) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
+// 中文处理
+header('Content-type:text/html;charset=utf-8');
+
+// 连接初始化
+$link = mysqli_connect('localhost:3306', 'root', 'H*****319') or die('数据库连接失败！');
+
+// 封装mysql语法错误函数
+/*
+@param1 resource $link, 连接数据库资源
+@param2 string $sql, 要执行的sql语句
+@return $res, 正确执行完返回的结果
+ */
+function query($link, $sql)
+{
+    // 执行sql
+    $res = mysqli_query($link, $sql);
+    // 处理可能存在的错误
+    if (!$res) {
+        echo 'SQL指令执行出错，错误编号为：' . mysqli_errno($link) . '<br>';
+        echo 'SQL指令执行出错，错误信息是：' . mysqli_error($link) . '<br>';
+        // 中止代码
+        exit();
+    }
+    //返回结果
+    return $res;
 }
 
-// 设定字符集
-mysqli_query($link, 'set names utf8');
+// 字符集处理
+query($link, 'set names utf8');
 
 // 选择数据库
-mysqli_query($link, 'use detailed_list');
+query($link, 'use detailed_list');
 
 // 数据库相关信息
 // CREATE DATABASE webnote charset=utf8;

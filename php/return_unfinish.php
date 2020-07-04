@@ -12,7 +12,7 @@ $rows = count_rows($link);
 for ($i = $rows; $i >= 1; $i--) {
     // 判断是否完成
     $sql_finished = "select isFinished,content from project where id = '{$i}'";
-    $res_finished = mysqli_query($link, $sql_finished);
+    $res_finished = query($link, $sql_finished);
     $array_finished = mysqli_fetch_array($res_finished, MYSQLI_ASSOC);
     // var_dump($array_finished);
 
@@ -27,7 +27,7 @@ for ($i = $rows; $i >= 1; $i--) {
 
 // 遍历
 // $sql2 = "select * from project where id = '{$i}'";
-// $res2 = mysqli_query($link, $sql2);
+// $res2 = query($link, $sql2);
 // $array = mysqli_fetch_array($res2, MYSQLI_ASSOC);
 // 检查出错原因
 // if (!$res2) {

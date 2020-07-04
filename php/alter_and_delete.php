@@ -18,7 +18,7 @@ $delete_sql = "DELETE FROM project WHERE content = '{$delete_list}'";
 
 // 执行指令
 if ($delete_list) {
-    if (mysqli_query($link, $delete_sql)) {
+    if (query($link, $delete_sql)) {
         // 整理数据库列表id
         include_once 'utils.php';
         sort_list($link);
@@ -27,13 +27,13 @@ if ($delete_list) {
         echo '数据删除失败';
     }
 } else if ($unfinish_list) {
-    if (mysqli_query($link, $unfinish_sql)) {
+    if (query($link, $unfinish_sql)) {
         echo '数据isFinished=0设置成功';
     } else {
         echo '数据isFinished=0设置失败';
     }
 } else if ($finish_list) {
-    if (mysqli_query($link, $finish_sql)) {
+    if (query($link, $finish_sql)) {
         echo '数据isFinished=1设置成功';
     } else {
         echo '数据isFinished=1设置失败';

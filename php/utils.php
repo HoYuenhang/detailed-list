@@ -10,14 +10,14 @@ function sort_list($link)
 {
     $sort = "alter table project drop id";
     $sort2 = "alter table project add id int(11) primary key auto_increment first";
-    mysqli_query($link, $sort) && mysqli_query($link, $sort2);
+    query($link, $sort) && query($link, $sort2);
 }
 
 // 查看总行数
 function count_rows($link)
 {
     $sql = 'select * from project';
-    $res = mysqli_query($link, $sql);
+    $res = query($link, $sql);
     // 检查出错原因
     if (!$res) {
         printf("Error: %s\n", mysqli_error($link));
