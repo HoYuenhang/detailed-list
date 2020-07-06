@@ -26,7 +26,7 @@ CREATE TABLE project(
     pub_time INT NOT NULL COMMENT '时间戳'
 )charset utf8;
 ```
-4. Enter directory ```detail-list/php/```, open```database_login.php```, modify the ```MySQL address:port```, MySQL ```user``` and ```password```.
+4. Enter directory ```detail-list/app/```, open```database_login.php```, modify the ```MySQL address:port```, MySQL ```user``` and ```password```.
 
 ![](https://s1.ax1x.com/2020/07/01/NTTBOe.jpg)
 
