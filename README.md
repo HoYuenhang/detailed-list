@@ -1,6 +1,6 @@
 # detailed-list
 
-![DetailedList](https://img.shields.io/badge/DetailedList-1.0.0-orange)
+![DetailedList](https://img.shields.io/badge/DetailedList-1.1.0-orange)
 
 English | [中文](https://github.com/Jackie1123/detailed-list/blob/master/README_ZN.md)（同步更新）
 
@@ -27,5 +27,7 @@ CREATE TABLE project(
 )charset utf8;
 ```
 4. Enter directory ```detail-list/php/```, open```database_login.php```, modify the ```MySQL address:port```, MySQL ```user``` and ```password```.
+
 ![](https://s1.ax1x.com/2020/07/01/NTTBOe.jpg)
-5. Input the localhost address in your browser.
+
+5. Input the localhost address in your browser(Visit the document named index.php).
