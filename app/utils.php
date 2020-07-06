@@ -2,10 +2,9 @@
 
 // 工具函数集
 
-// 登录数据库
-include_once 'database_login.php';
-
-// 整理数据表
+/*整理数据表
+ *@param1 resource $link, 连接数据库资源
+ */
 function sort_list($link)
 {
     $sort = "alter table project drop id";
@@ -13,7 +12,9 @@ function sort_list($link)
     query($link, $sort) && query($link, $sort2);
 }
 
-// 查看总行数
+/*查看总行数
+ *@param1 resource $link, 连接数据库资源
+ */
 function count_rows($link)
 {
     $sql = 'select * from project';
@@ -29,10 +30,11 @@ function count_rows($link)
     return $rows;
 }
 
-// 跳转回主页
+/*跳转回主页
+ *@param1 none
+ */
 function back2index()
 {
-    $url = '../index.php';
+    $url = 'index.php';
     header("location: $url");
-
 }

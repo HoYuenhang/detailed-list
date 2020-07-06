@@ -1,6 +1,6 @@
 # detailed-list
 
-![DetailedList](https://img.shields.io/badge/DetailedList-1.0.0-orange)
+![DetailedList](https://img.shields.io/badge/DetailedList-1.1.0-orange)
 
 [English](https://github.com/Jackie1123/detailed-list/blob/master/README.md) | 中文
 
@@ -27,5 +27,7 @@ CREATE TABLE project(
 )charset utf8;
 ```
 4. 进入项目目录```detail-list/php/```, 打开```database_login.php```, 修改```MySQL address:port```, MySQL ```user``` 和 ```password```。
+
 ![](https://s1.ax1x.com/2020/07/01/NTTBOe.jpg)
-5. 在浏览器中输入localhost的地址即可访问。
+
+5. 在浏览器中输入localhost的地址即可访问(请访问名为index.php的文件)。

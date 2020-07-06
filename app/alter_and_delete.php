@@ -1,9 +1,6 @@
 <?php
 
 // 删除项目：删除list
-include_once 'utils.php';
-// 登录数据库
-include_once 'database_login.php';
 
 // 拿到前端传入的文本
 var_dump($_POST);
@@ -15,6 +12,9 @@ $delete_list = $_POST['delete']; //接受删除按钮传进的数据 操作：�
 $finish_sql = "UPDATE project SET isFinished = 1 WHERE content = '{$finish_list}'";
 $unfinish_sql = "UPDATE project SET isFinished = 0 WHERE content = '{$unfinish_list}'";
 $delete_sql = "DELETE FROM project WHERE content = '{$delete_list}'";
+
+// 数据修改入库
+include_once 'database_login.php';
 
 // 执行指令
 if ($delete_list) {
@@ -41,4 +41,5 @@ if ($delete_list) {
 }
 
 // 跳转回主页
+include_once 'utils.php';
 back2index();

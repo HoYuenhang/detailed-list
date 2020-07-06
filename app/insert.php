@@ -3,10 +3,6 @@
 // 插入项目：新建list
 
 header('Content-type:text/html;charset:utf-8');
-include_once 'utils.php';
-
-// 登录数据库
-include_once 'database_login.php';
 
 //拿到前端传入的文本
 var_dump($_POST);
@@ -19,6 +15,9 @@ if (empty($new_project)) {
     // 阻止脚本进行
     exit('内容不能为空！');
 }
+
+// 数据入库
+include_once 'database_login.php';
 
 // 插入数据
 $public_time = time();
@@ -41,4 +40,5 @@ if ($new_project == $check_finished['content']) {
 }
 
 // 跳转回主页
+include_once 'utils.php';
 back2index();
