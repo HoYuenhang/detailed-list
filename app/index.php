@@ -15,18 +15,18 @@ $array_unfinish = array(); //装未完成
 $array_finished = array(); //装已完成
 
 // 遍历数据库：返回所有结果
-for ($i = $rows; $i >= 1; $i--) {
-    $sql = "select isFinished,content from project where id = '{$i}'";
-    $res = query($link, $sql);
+$sql = "select * from project";
+$res = query($link, $sql);
+for ($i = 0; $i < $rows; $i++) {
     $res_array[] = mysqli_fetch_assoc($res);
 }
 
 // 判断是否完成：分类
-for ($i = $rows - 1; $i >= 0; $i--) {
+for ($i = 0; $i < $rows; $i++) {
     if ($res_array[$i]['isFinished'] == 0) { //未完成
-        $array_unfinish[] = $res_array[$i]['content'];
+        $array_unfinish[] = $res_array[$i];
     } elseif ($res_array[$i]['isFinished'] == 1) { //已完成
-        $array_finished[] = $res_array[$i]['content'];
+        $array_finished[] = $res_array[$i];
     }
 }
 

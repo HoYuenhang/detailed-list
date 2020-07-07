@@ -6,7 +6,7 @@
 header('Content-type:text/html;charset=utf-8');
 
 // 连接初始化
-$link = mysqli_connect('localhost:3306', 'root', '******') or die('数据库连接失败！');
+$link = mysqli_connect('localhost:3306', 'root', 'Hxk112319') or die('数据库连接失败！');
 if (!$link) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();

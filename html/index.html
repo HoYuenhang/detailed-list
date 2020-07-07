@@ -25,7 +25,7 @@
                 <fieldset class="layui-elem-field">
                     <legend>以下</legend>
                     <div style="font-size: 16px;text-align:center;" class="layui-field-box">
-                        是想和姐姐一起做的事呀
+                        是一个清单呀
                     </div>
                 </fieldset>
                 <form method="POST" action="../app/insert.php">
@@ -46,15 +46,13 @@
                     未完成
                 </text>
                 <hr>
-                <form method="POST" action="../app/alter_and_delete.php">
-                    <?php foreach (array_reverse($array_unfinish) as $array):?>
-                    <li class='list-item list-item-unselect'><i class='layui-icon layui-icon-star'></i>
-                        <?php print_r($array);?>
-                        <button style='float:right;margin-right:5px;border-radius:10px;' type='submit' name='delete' value='<?php print_r($array);?>' class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</button>
-                        <button style='float:right;margin-right:5px;border-radius:10px;' type='submit' name='finish' value='<?php print_r($array);?>' class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>完成</button>
-                    </li>
-                    <?php endforeach;?>
-                </form>
+                <?php foreach (array_reverse($array_unfinish) as $array):?>
+                <li class='list-item list-item-unselect'><i class='layui-icon layui-icon-star'></i>
+                    <?php echo $array['content'];?>
+                    <a onclick="return confirm('确定删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
+                    <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?content=<?php echo $array['content']?>&isFinished=<?php echo $array['isFinished']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>完成</a>
+                </li>
+                <?php endforeach;?>
             </div>
         </div>
 
@@ -66,22 +64,20 @@
                     已完成
                 </text>
                 <hr>
-                <form method="POST" action="../app/alter_and_delete.php">
-                    <?php foreach (array_reverse($array_finished) as $array):?>
-                    <li class='list-item list-item-unselect'><i class='layui-icon layui-icon-star-fill'></i>
-                        <?php echo $array;?>
-                        <button style='float:right;margin-right:5px;border-radius:10px;' type='submit' name='delete' value='<?php echo $array;?>' class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</button>
-                        <button style='float:right;margin-right:5px;border-radius:10px;' type='submit' name='unfinish' value='<?php echo $array;?>' class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>取消</button>
-                    </li>
-                    <?php endforeach;?>
-                </form>
+                <?php foreach (array_reverse($array_finished) as $array):?>
+                <li class='list-item list-item-unselect'><i class='layui-icon layui-icon-star-fill'></i>
+                    <?php echo $array['content'];?>
+                    <a onclick="return confirm('确定要删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
+                    <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?content=<?php echo $array['content']?>&isFinished=<?php echo $array['isFinished']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>取消</a>
+                </li>
+                <?php endforeach;?>
             </div>
         </div>
     </div>
     <div style="color:gray;text-align: center;">服务器运行时间 10：00-次晨 0：00</div>
     <!-- <br>小K同學 <i style="padding: 0;" class="layui-icon layui-icon-heart-fill"></i> Cactus -->
 
-    <script src="layui/layui.js"></script>
+    <script src="../layui/layui.js"></script>
     <script>
         // 进入页面时弹出层
         layui.use('layer', function() {

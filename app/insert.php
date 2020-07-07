@@ -5,13 +5,13 @@
 header('Content-type:text/html;charset:utf-8');
 
 //拿到前端传入的文本
-var_dump($_POST);
+// var_dump($_POST);
 $new_project = isset($_POST['new_project']) ? trim($_POST['new_project']) : '';
 
 // 数据合法性验证：内容均不能为空
 if (empty($new_project)) {
     //提示同时回到提交页面
-    header('Refresh:2;url=../index.php'); //header前不能有输出
+    header('Refresh:2;url=index.php'); //header前不能有输出
     // 阻止脚本进行
     exit('内容不能为空！');
 }
@@ -31,12 +31,12 @@ $check_finished = mysqli_fetch_array($check_sql, MYSQLI_ASSOC);
 // 执行指令
 if ($new_project == $check_finished['content']) {
     echo '数据库中已有此条数据';
+} else if ($new_project && query($link, $sql)) {
+    echo '数据插入成功';
+} else if ($new_project == '') {
+    echo '插入的数据为空';
 } else {
-    if ($new_project && query($link, $sql)) {
-        echo '数据插入成功';
-    } else {
-        echo '数据插入失败';
-    }
+    echo '数据插入失败';
 }
 
 // 跳转回主页
