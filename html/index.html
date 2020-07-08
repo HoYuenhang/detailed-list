@@ -31,9 +31,9 @@
                 <form method="POST" action="../app/insert.php">
                     <div class="layui-row">
                         <div class="layui-col-xs9 layui-col-sm9">
-                            <input onmouseover="this.focus()" onfocus="this.select()" style="display:inline-block;border-radius: 10px!important;" id="inputText" class="inputText layui-input" type="text" name="new_project" placeholder="想做什么呢？" id="">
+                            <input onmouseover="this.focus()" onfocus="this.select()" style="display:inline-block;border-radius: 10px!important;" id="inputText" class="inputText layui-input" type="text" name="new_project" placeholder="想做什么呢？">
                         </div>
-                        <button type="submit" name="btn" value="新建list" class="layui-col-xs2 new-btn layui-btn">新建</button>
+                        <button type="submit" name="btn" value="new_list" class="layui-col-xs2 new-btn layui-btn">新建</button>
                     </div>
                 </form>
             </div>
@@ -47,10 +47,10 @@
                 </text>
                 <hr>
                 <?php foreach (array_reverse($array_unfinish) as $array):?>
-                <li class='list-item list-item-unselect'><i class='layui-icon layui-icon-star'></i>
+                <li class='list-item list-item-unselect'><a href="../app/alter_and_delete.php?content=<?php echo $array['content']?>&isFinished=<?php echo $array['isFinished']?>"><i class='layui-icon layui-icon-star'></i></a>
                     <?php echo $array['content'];?>
                     <a onclick="return confirm('确定删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
-                    <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?content=<?php echo $array['content']?>&isFinished=<?php echo $array['isFinished']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>完成</a>
+                    <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/edit.php?id=<?php echo $array['id']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>修改</a>
                 </li>
                 <?php endforeach;?>
             </div>
@@ -65,10 +65,10 @@
                 </text>
                 <hr>
                 <?php foreach (array_reverse($array_finished) as $array):?>
-                <li class='list-item list-item-unselect'><i class='layui-icon layui-icon-star-fill'></i>
+                <li class='list-item list-item-unselect'><a href="../app/alter_and_delete.php?content=<?php echo $array['content']?>&isFinished=<?php echo $array['isFinished']?>"><i class='layui-icon layui-icon-star-fill'></i></a>
                     <?php echo $array['content'];?>
                     <a onclick="return confirm('确定要删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
-                    <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?content=<?php echo $array['content']?>&isFinished=<?php echo $array['isFinished']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>取消</a>
+                    <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/edit.php?id=<?php echo $array['id']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>修改</a>
                 </li>
                 <?php endforeach;?>
             </div>

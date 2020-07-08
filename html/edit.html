@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title id="title"></title>
+    <link rel="stylesheet icon" href="../img/list.ico" />
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jQuery.js"></script>
+    <style>
+        .layui-layer-btn .layui-layer-btn0 {
+            border-color: #119D90 !important;
+            background-color: #119D90 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-container">
+        <!-- 头部：新建，输入操作 -->
+        <div class="layui-row">
+            <div class="header layui-col-md-offset3 layui-col-md6">
+                <fieldset class="layui-elem-field">
+                    <legend>修改</legend>
+                    <div style="font-size: 16px;text-align:center;" class="layui-field-box">
+                        下方输入框输入以修改
+                    </div>
+                </fieldset>
+                <form method="POST" action="../app/update.php">
+                    <input type="hidden" name="id" value="<?php echo $res_array['id']?>">
+                    <div class="layui-row">
+                        <div class="layui-col-xs9 layui-col-sm9">
+                            <input onmouseover="this.focus()" onfocus="this.select()" style="display:inline-block;border-radius:10px!important;" id="inputText" class="inputText layui-input" type="text" name="edit_project" placeholder="改成什么呢？" value="<?php echo $res_array['content']?>">
+                        </div>
+                        <button type="submit" name="btn" value="new_list" class="layui-col-xs2 new-btn layui-btn">修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../layui/layui.js"></script>
+    <script>
+        // 进入页面时弹出层
+        layui.use('layer', function() {
+            var layer = layui.layer;
+            layer.msg('修改页面', {
+                time: 2000
+            });
+        });
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
