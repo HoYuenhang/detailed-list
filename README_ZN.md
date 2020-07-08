@@ -12,7 +12,7 @@
 ### 移动界面
 ![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
 ## 如何使用？
-1. 电脑中需要安装本地服务器和MySQL。
+1. 电脑中需要安装本地服务器(可以解释PHP)和MySQL。
 2. 创建一个叫做**detailed_list**的数据库。
 ```MySQL
 CREATE DATABASE detailed_list charset=utf8;

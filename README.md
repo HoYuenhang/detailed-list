@@ -12,7 +12,7 @@ A simple detailed-list.Help you remember trivia of live.
 ### Mobile UI
 ![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
 ## How to use？
-1. A server and MySQL is necessary.
+1. A server(with PHP) and MySQL is necessary.
 2. Create a database named **detailed_list**.
 ```MySQL
 CREATE DATABASE detailed_list charset=utf8;
