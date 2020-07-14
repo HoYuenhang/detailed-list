@@ -10,7 +10,7 @@ A simple detailed-list.Help you remember trivia of live.
 ### Desktop UI
 ![](https://s1.ax1x.com/2020/07/14/UaZX1P.png)
 ### Mobile UI
-![](https://s1.ax1x.com/2020/07/14/UaeCkj.jpg)
+![](https://s1.ax1x.com/2020/07/14/UamhZD.jpg)
 ## How to use？
 1. A server(with PHP) and MySQL is necessary.
 2. Create a database named **detailed_list**.
