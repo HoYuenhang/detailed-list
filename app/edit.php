@@ -10,7 +10,7 @@ $id = isset($_GET['id']) ? (integer) $_GET['id'] : 0; //接收数据库中id的�
 // var_dump($_GET);
 // 安全验证
 if ($id == 0) {
-    header('Refresh:3;url=inedx.php');
+    header('Refresh:3;url=index.php');
     echo '当前要编辑的数据不存在。';
     exit();
 }

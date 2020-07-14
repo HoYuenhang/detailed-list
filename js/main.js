@@ -2,16 +2,16 @@
 var d = new Date();
 var time = d.getHours();
 if (time < 24) {
-    document.getElementById("title").innerHTML = "清单 | Good evening";
+    document.getElementById("title").innerHTML = "一个清单 | Good evening";
 }
 if (time < 18) {
-    document.getElementById("title").innerHTML = "清单 | Good afternoon";
+    document.getElementById("title").innerHTML = "一个清单 | Good afternoon";
 }
 if (time < 12) {
-    document.getElementById("title").innerHTML = "清单 | Good morning";
+    document.getElementById("title").innerHTML = "一个清单 | Good morning";
 }
 if (time < 5) {
-    document.getElementById("title").innerHTML = "清单 | Stay up late again";
+    document.getElementById("title").innerHTML = "一个清单 | Stay up late again";
 }
 
 // 检测输入框是否为空

@@ -1,6 +1,6 @@
 # detailed-list
 
-![DetailedList](https://img.shields.io/badge/DetailedList-1.1.0-orange)
+![DetailedList](https://img.shields.io/badge/DetailedList-1.1.3-orange)
 
 [English](https://github.com/Jackie1123/detailed-list/blob/master/README.md) | 中文
 
@@ -8,9 +8,9 @@
 一个简单的任务清单帮你记录生活的琐事。
 ## Demo
 ### 桌面界面
-![](https://s1.ax1x.com/2020/07/01/NTh6ns.png)
+![](https://s1.ax1x.com/2020/07/14/UaZX1P.png)
 ### 移动界面
-![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
+![](https://s1.ax1x.com/2020/07/14/UaeCkj.jpg)
 ## 如何使用？
 1. 电脑中需要安装本地服务器(可以解释PHP)和MySQL。
 2. 创建一个叫做**detailed_list**的数据库。

@@ -23,19 +23,11 @@
         <div class="layui-row">
             <div class="header layui-col-md-offset3 layui-col-md6">
                 <fieldset class="layui-elem-field">
-                    <legend>以下</legend>
+                    <legend>标签</legend>
                     <div style="font-size: 16px;text-align:center;" class="layui-field-box">
-                        是一个清单呀
+                        <?php echo '#'.$label?>
                     </div>
                 </fieldset>
-                <form method="POST" action="../app/insert.php">
-                    <div class="layui-row">
-                        <div class="layui-col-xs9 layui-col-sm9">
-                            <input onmouseover="this.focus()" onfocus="this.select()" style="display:inline-block;border-radius: 10px!important;" id="inputText" class="inputText layui-input" type="text" name="new_project" placeholder="想做什么呢？">
-                        </div>
-                        <button type="submit" name="btn" value="new_list" class="layui-col-xs2 new-btn layui-btn">新建</button>
-                    </div>
-                </form>
             </div>
         </div>
 
@@ -81,18 +73,19 @@
                     <?php }?>
                 </li>
                 <?php endforeach;?>
+                <div style="text-align: center;margin-top:40px;">
+                    <a style="display: inline-block;" href="index.php" class="layui-btn layui-btn-radius">返回主页</a>
+                </div>
             </div>
         </div>
     </div>
-    <div style="margin-top:20px;color:gray;text-align: center;">服务器运行时间 10：00-次晨 0：00<br>标签添加方法:在输入的新建内容后加空格再跟标签名即可</div>
-    <!-- <br>小K同學 <i style="padding: 0;" class="layui-icon layui-icon-heart-fill"></i> Cactus -->
-
+    <div style="color:gray;text-align: center;">服务器运行时间 10：00-次晨 0：00</div>
     <script src="../layui/layui.js"></script>
     <script>
         // 进入页面时弹出层
         layui.use('layer', function() {
             var layer = layui.layer;
-            layer.msg('Hi', {
+            layer.msg('修改页面', {
                 time: 2000
             });
         });

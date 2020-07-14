@@ -16,24 +16,30 @@ if (empty($new_project)) {
     exit('内容不能为空！');
 }
 
+// 分割新建内容与标签
+$explore_array = explode(" ",$new_project);
+$new_project_name = $explore_array[0];
+$new_project_label = $explore_array[1];
+echo $new_project_label;
+
 // 数据入库
 include_once 'database_login.php';
 
 // 插入数据
 $public_time = time();
-$sql = "INSERT INTO project VALUES(NULL,0,'{$new_project}',{$public_time})";
+$sql = "INSERT INTO project VALUES(NULL,0,'{$new_project_name}',{$public_time},'{$new_project_label}')";
 
 // 检查是否有相同数据
-$check_sql = query($link, "SELECT * FROM project WHERE content = '{$new_project}'");
+$check_sql = query($link, "SELECT * FROM project WHERE content = '{$new_project_name}'");
 $check_finished = mysqli_fetch_array($check_sql, MYSQLI_ASSOC);
 // var_dump($check_finished);
 
 // 执行指令
-if ($new_project == $check_finished['content']) {
+if ($new_project_name == $check_finished['content']) {
     echo '数据库中已有此条数据';
-} else if ($new_project && query($link, $sql)) {
+} else if ($new_project_name && query($link, $sql)) {
     echo '数据插入成功';
-} else if ($new_project == '') {
+} else if ($new_project_name == '') {
     echo '插入的数据为空';
 } else {
     echo '数据插入失败';

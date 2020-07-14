@@ -1,6 +1,6 @@
 # detailed-list
 
-![DetailedList](https://img.shields.io/badge/DetailedList-1.1.0-orange)
+![DetailedList](https://img.shields.io/badge/DetailedList-1.1.3-orange)
 
 English | [中文](https://github.com/Jackie1123/detailed-list/blob/master/README_ZN.md)（同步更新）
 
@@ -8,9 +8,9 @@ English | [中文](https://github.com/Jackie1123/detailed-list/blob/master/READM
 A simple detailed-list.Help you remember trivia of live.
 ## Demo
 ### Desktop UI
-![](https://s1.ax1x.com/2020/07/01/NTh6ns.png)
+![](https://s1.ax1x.com/2020/07/14/UaZX1P.png)
 ### Mobile UI
-![](https://s1.ax1x.com/2020/07/01/NThcBn.jpg)
+![](https://s1.ax1x.com/2020/07/14/UaeCkj.jpg)
 ## How to use？
 1. A server(with PHP) and MySQL is necessary.
 2. Create a database named **detailed_list**.

@@ -35,6 +35,5 @@ function count_rows($link)
  */
 function back2index()
 {
-    $url = 'index.php';
-    header("location: $url");
+    header("location: index.php");
 }

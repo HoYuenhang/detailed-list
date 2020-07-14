@@ -1,6 +1,9 @@
 <?php
 
-// 主页面文件:输出数据库中内容
+// 标签显示页面
+
+$label = $_GET['label'];
+// var_dump($label);
 
 // 登录数据库
 include_once 'database_login.php';
@@ -24,11 +27,15 @@ for ($i = 0; $i < $rows; $i++) {
 // 判断是否完成：分类
 for ($i = 0; $i < $rows; $i++) {
     if ($res_array[$i]['isFinished'] == 0) { //未完成
-        $array_unfinish[] = $res_array[$i];
+        if ($res_array[$i]['label'] == $label) {
+            $array_unfinish[] = $res_array[$i];
+        }
     } elseif ($res_array[$i]['isFinished'] == 1) { //已完成
-        $array_finished[] = $res_array[$i];
+        if ($res_array[$i]['label'] == $label) {
+            $array_finished[] = $res_array[$i];
+        }
     }
 }
 
 // 引入html模板
-include_once '../html/index.html';
+include_once '../html/label.html';
