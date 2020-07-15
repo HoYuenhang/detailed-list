@@ -1,6 +1,6 @@
 # detailed-list
 
-![DetailedList](https://img.shields.io/badge/DetailedList-1.1.3-orange)
+![DetailedList](https://img.shields.io/badge/DetailedList-1.1.4-orange)
 
 English | [中文](https://github.com/Jackie1123/detailed-list/blob/master/README_ZN.md)（同步更新）
 
@@ -10,7 +10,7 @@ A simple detailed-list.Help you remember trivia of live.
 ### Desktop UI
 ![](https://s1.ax1x.com/2020/07/14/UaZX1P.png)
 ### Mobile UI
-![](https://s1.ax1x.com/2020/07/14/UaeCkj.jpg)
+![](https://s1.ax1x.com/2020/07/14/UamhZD.jpg)
 ## How to use？
 1. A server(with PHP) and MySQL is necessary.
 2. Create a database named **detailed_list**.
@@ -23,7 +23,8 @@ CREATE TABLE project(
     id int PRIMARY KEY auto_increment,
     isFinished TINYINT NOT NULL COMMENT '是否完成',
     content text NOT NULL COMMENT '内容',
-    pub_time INT NOT NULL COMMENT '时间戳'
+    pub_time INT NOT NULL COMMENT '时间戳',
+    label varchar(10) COMMENT '标签'
 )charset utf8;
 ```
 4. Enter directory ```detail-list/app/```, open```database_login.php```, modify the ```MySQL address:port```, MySQL ```user``` and ```password```.
