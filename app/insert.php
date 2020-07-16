@@ -5,7 +5,6 @@
 header('Content-type:text/html;charset:utf-8');
 
 //拿到前端传入的文本
-// var_dump($_POST);
 $new_project = isset($_POST['new_project']) ? trim($_POST['new_project']) : '';
 
 // 数据合法性验证：内容均不能为空
@@ -20,7 +19,6 @@ if (empty($new_project)) {
 $explore_array = explode(" ",$new_project);
 $new_project_name = $explore_array[0];
 $new_project_label = $explore_array[1];
-echo $new_project_label;
 
 // 数据入库
 include_once 'database_login.php';

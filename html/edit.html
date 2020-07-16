@@ -32,7 +32,7 @@
                     <input type="hidden" name="id" value="<?php echo $res_array['id']?>">
                     <div class="layui-row">
                         <div class="layui-col-xs9 layui-col-sm9">
-                            <input onmouseover="this.focus()" onfocus="this.select()" style="display:inline-block;border-radius:10px!important;" id="inputText" class="inputText layui-input" type="text" name="edit_project" placeholder="改成什么呢？" value="<?php echo $res_array['content']?>">
+                            <input onmouseover="this.focus()" onfocus="this.select()" style="display:inline-block;border-radius:10px!important;" id="inputText" class="inputText layui-input" type="text" name="edit_project" placeholder="改成什么呢？" value="<?php echo $res_array['content'].' '.$res_array['label']?>">
                         </div>
                         <button type="submit" name="btn" value="new_list" class="layui-col-xs2 new-btn layui-btn">修改</button>
                     </div>

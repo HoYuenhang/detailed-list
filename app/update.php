@@ -18,11 +18,28 @@ if (empty($id) || empty($content)) {
     exit('标题或内容都不能为空！');
 }
 
+// 分割新建内容与标签
+$explore_array = array();
+$explore_array = explode(" ", $content);
+
 // 组织sql更新到数据库
 include_once 'database_login.php';
-$sql = "update project set content = '{$content}' where id = '{$id}'";
+
+$new_project_name = trim($explore_array[0]);
+$sql = "UPDATE project SET content = '{$new_project_name}' WHERE id = '{$id}'";
 query($link, $sql);
+
+// 数据安全性与执行
+$count = count($explore_array); // 统计接收到的数据条数：更改与标签
+if ($count == 1) {
+    $sql2 = "UPDATE project SET label = NULL WHERE content = '{$new_project_name}'";
+    query($link, $sql2);
+} else if ($count > 1) {
+    $new_project_label = trim($explore_array[1]);
+    $sql2 = "update project set label = '{$new_project_label}' where id = '{$id}'";
+    query($link, $sql2);
+}
 
 // 提示
 header('Refresh:3;url = index.php');
-echo '当前新闻更新成功！即将返回主页面';
+echo '当前信息更新成功！即将返回主页面';

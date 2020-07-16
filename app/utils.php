@@ -24,9 +24,7 @@ function count_rows($link)
         printf("Error: %s\n", mysqli_error($link));
         exit();
     }
-// var_dump($res);
     $rows = mysqli_num_rows($res);
-// echo $rows;
     return $rows;
 }
 

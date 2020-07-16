@@ -38,14 +38,15 @@ query($link, 'set names utf8');
 // 选择数据库
 query($link, 'use detailed_list');
 
-// 数据库相关信息
-// CREATE DATABASE webnote charset=utf8;
-// CREATE TABLE new_project(
-//     id int PRIMARY KEY auto_increment,
-//     isFinished TINYINT NOT NULL COMMENT '是否完成',
-//     content text COMMENT '内容',
-//     pub_time INT NOT NULL COMMENT '时间戳'
-// )charset utf8;
-// 注意：
-// 关于是否完成，没完成为0，完成为1。插入时均为0。
-// 关于时间戳，系统自动生成
+/* 数据库相关信息
+ * CREATE TABLE project(
+ *     id int PRIMARY KEY auto_increment,
+ *     isFinished TINYINT NOT NULL COMMENT '是否完成',
+ *     content text NOT NULL COMMENT '内容',
+ *     pub_time INT NOT NULL COMMENT '时间戳',
+ *     label varchar(10) COMMENT '标签'
+ * )charset utf8;
+ * 注意：
+ * 关于是否完成，没完成为0，完成为1。插入时均为0。
+ * 关于时间戳，系统自动生成
+ */

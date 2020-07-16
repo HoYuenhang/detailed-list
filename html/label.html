@@ -44,7 +44,7 @@
                     <a onclick="return confirm('确定删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
                     <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/edit.php?id=<?php echo $array['id']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>修改</a>
                     <?php if($array['label']){?>
-                    <a style="float:right;margin-right:5px;" href="../app/label.php?label=<?php echo $array['label']?>" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
+                    <a target="_self" style="float:right;margin-right:5px;" href="#" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
                     <?php echo $array['label']?>
                     </a>
                     <?php }?>
@@ -67,7 +67,7 @@
                     <a onclick="return confirm('确定要删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
                     <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/edit.php?id=<?php echo $array['id']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>修改</a>
                     <?php if($array['label']){?>
-                    <a style="float:right;margin-right:5px;" href="../app/label.php?label=<?php echo $array['label']?>" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
+                    <a target="_self" style="float:right;margin-right:5px;" href="#" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
                         <?php echo $array['label']?>
                         </a>
                     <?php }?>
@@ -79,13 +79,12 @@
             </div>
         </div>
     </div>
-    <div style="color:gray;text-align: center;">服务器运行时间 10：00-次晨 0：00</div>
     <script src="../layui/layui.js"></script>
     <script>
         // 进入页面时弹出层
         layui.use('layer', function() {
             var layer = layui.layer;
-            layer.msg('修改页面', {
+            layer.msg('标签页面', {
                 time: 2000
             });
         });

@@ -6,7 +6,6 @@
 $finish_id = isset($_GET['isFinished']) ? $_GET['isFinished'] : ''; //接收数据库中isFinished的值
 $finish_content = isset($_GET['content']) ? $_GET['content'] : ''; //接收数据库中content的值
 $delete_list = isset($_GET['id']) ? $_GET['id'] : ''; //接受删除按钮传进的id值 操作：删除
-// var_dump($_GET);
 
 // 数据库操作
 $finish_sql = "UPDATE project SET isFinished = 1 WHERE content = '{$finish_content}'";

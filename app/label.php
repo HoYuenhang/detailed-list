@@ -2,8 +2,7 @@
 
 // 标签显示页面
 
-$label = $_GET['label'];
-// var_dump($label);
+$label = trim($_GET['label']);
 
 // 登录数据库
 include_once 'database_login.php';
@@ -27,11 +26,11 @@ for ($i = 0; $i < $rows; $i++) {
 // 判断是否完成：分类
 for ($i = 0; $i < $rows; $i++) {
     if ($res_array[$i]['isFinished'] == 0) { //未完成
-        if ($res_array[$i]['label'] == $label) {
+        if ($res_array[$i]['label'] == $label) { // 从所有数据中筛选出用户所点击的标签
             $array_unfinish[] = $res_array[$i];
         }
     } elseif ($res_array[$i]['isFinished'] == 1) { //已完成
-        if ($res_array[$i]['label'] == $label) {
+        if ($res_array[$i]['label'] == $label) { // 从所有数据中筛选出用户所点击的标签,too
             $array_finished[] = $res_array[$i];
         }
     }

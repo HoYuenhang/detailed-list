@@ -52,7 +52,7 @@
                     <a onclick="return confirm('确定删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
                     <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/edit.php?id=<?php echo $array['id']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>修改</a>
                     <?php if($array['label']){?>
-                    <a style="float:right;margin-right:5px;" href="../app/label.php?label=<?php echo $array['label']?>" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
+                    <a target="_self" style="float:right;margin-right:5px;" href="../app/label.php?label=<?php echo $array['label']?>" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
                     <?php echo $array['label']?>
                     </a>
                     <?php }?>
@@ -75,7 +75,7 @@
                     <a onclick="return confirm('确定要删除吗？QAQ~');" style='float:right;margin-right:5px;border-radius:10px;' href="../app/alter_and_delete.php?id=<?php echo $array['id']?>" class='del-btn layui-btn layui-btn-primary layui-btn-xs'>删除</a>
                     <a style='float:right;margin-right:5px;border-radius:10px;' href="../app/edit.php?id=<?php echo $array['id']?>" class='finish-btn layui-btn layui-btn-primary layui-btn-xs'>修改</a>
                     <?php if($array['label']){?>
-                    <a style="float:right;margin-right:5px;" href="../app/label.php?label=<?php echo $array['label']?>" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
+                    <a target="_self" style="float:right;margin-right:5px;" href="../app/label.php?label=<?php echo $array['label']?>" class="label-btn layui-btn layui-btn-primary layui-btn-xs">#
                         <?php echo $array['label']?>
                         </a>
                     <?php }?>
@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    <div style="margin-top:20px;color:gray;text-align: center;">服务器运行时间 10：00-次晨 0：00<br>标签添加方法:在输入的新建内容后加空格再跟标签名即可</div>
+    <div style="margin-top:20px;color:gray;text-align: center;"><br>标签添加方法:<br>在输入的新建内容后加空格再跟标签名即可<br>现只可添加一个标签</div>
     <!-- <br>小K同學 <i style="padding: 0;" class="layui-icon layui-icon-heart-fill"></i> Cactus -->
 
     <script src="../layui/layui.js"></script>
