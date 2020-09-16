@@ -6,7 +6,7 @@
 header('Content-type:text/html;charset=utf-8');
 
 // 连接初始化
-$link = mysqli_connect('localhost:3306', 'root', '******') or die('数据库连接失败！');
+$link = mysqli_connect('localhost:3306', 'root', 'H*****319') or die('数据库连接失败！');
 if (!$link) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
@@ -44,8 +44,16 @@ query($link, 'use detailed_list');
  *     isFinished TINYINT NOT NULL COMMENT '是否完成',
  *     content text NOT NULL COMMENT '内容',
  *     pub_time INT NOT NULL COMMENT '时间戳',
- *     label varchar(10) COMMENT '标签'
+ *     label varchar(10) COMMENT '标签',
+ *     admin varchar(50) COMMENT '所有者'
  * )charset utf8;
+ *
+ *  CREATE TABLE admin(
+ *     id int PRIMARY KEY auto_increment,
+ *     admin varchar(50) NOT NULL unique COMMENT '所有者',
+ *     password varchar(18) NOT NULL COMMENT '密码'
+ * )charset utf8;
+ *
  * 注意：
  * 关于是否完成，没完成为0，完成为1。插入时均为0。
  * 关于时间戳，系统自动生成

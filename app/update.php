@@ -5,6 +5,11 @@
 // 中文处理
 header('Content-type:text/html;charset=utf-8');
 
+// 启用session
+session_start();
+// 检查session
+$admin = $_SESSION['admin'];
+
 // 接受数据并验证
 $id = isset($_POST['id']) ? (integer) $_POST['id'] : 0; //0不会存在
 $content = isset($_POST['edit_project']) ? trim($_POST['edit_project']) : '';
@@ -26,17 +31,17 @@ $explore_array = explode(" ", $content);
 include_once 'database_login.php';
 
 $new_project_name = trim($explore_array[0]);
-$sql = "UPDATE project SET content = '{$new_project_name}' WHERE id = '{$id}'";
+$sql = "UPDATE project SET content = '{$new_project_name}' WHERE id = {$id} and admin = '{$admin}'";
 query($link, $sql);
 
 // 数据安全性与执行
 $count = count($explore_array); // 统计接收到的数据条数：更改与标签
 if ($count == 1) {
-    $sql2 = "UPDATE project SET label = NULL WHERE content = '{$new_project_name}'";
+    $sql2 = "UPDATE project SET label = NULL WHERE content = '{$new_project_name}' and admin = '{$admin}'";
     query($link, $sql2);
 } else if ($count > 1) {
     $new_project_label = trim($explore_array[1]);
-    $sql2 = "update project set label = '{$new_project_label}' where id = '{$id}'";
+    $sql2 = "UPDATE project SET label = '{$new_project_label}' WHERE id = {$id} and admin = '{$admin}'";
     query($link, $sql2);
 }
 

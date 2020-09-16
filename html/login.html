@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title id="title"></title>
+    <link rel="stylesheet icon" href="../img/list.ico" />
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jQuery.js"></script>
+    <style>
+        .layui-layer-btn .layui-layer-btn0 {
+            border-color: #119D90 !important;
+            background-color: #119D90 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-container">
+        <!-- 登录账号密码输入框 -->
+        <div class="layui-row">
+            <div class="header layui-col-md-offset3 layui-col-md6">
+                <fieldset class="layui-elem-field">
+                    <legend>请登录</legend>
+                    <div style="font-size: 16px;text-align:center;" class="layui-field-box">
+                        <form method="POST" action="../app/login.php">
+                            <div style="text-align: center;" class="layui-row layui-col-xs12 layui-col-sm10 layui-col-sm-offset1">
+                                <input onmouseover="this.focus()" onfocus="this.select()" style="margin: 20px 0;border-radius: 10px!important;" id="inputText" class="inputText layui-input" type="text" name="account" placeholder="请输入账号">
+                                <input onmouseover="this.focus()" onfocus="this.select()" style="margin: 20px 0;border-radius: 10px!important;" id="inputText" class="inputText layui-input" type="password" name="password" placeholder="请输入密码">
+                                <div style="font-size:10px;margin-top:20px;color:gray;text-align: center;">账号不存在将自动创建<br><br></div>
+                                <button style="display: inline-block;margin-bottom: 20px;" type="submit" name="btn" value="login" class="login-btn layui-btn layui-btn-radius">登入</button>
+                            </div>
+                        </form>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <script src="../layui/layui.js"></script>
+    <script>
+        // 进入页面时弹出层
+        layui.use('layer', function() {
+            var layer = layui.layer;
+            layer.msg('Hi', {
+                time: 2000
+            });
+        });
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

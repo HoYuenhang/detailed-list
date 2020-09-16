@@ -5,6 +5,11 @@
 // 中文处理
 header('Content-type:text/html;charset=utf-8');
 
+// 启用session
+session_start();
+// 检查session
+$admin = $_SESSION['admin'];
+
 // 获取数据
 $id = isset($_GET['id']) ? (integer) $_GET['id'] : 0; //接收数据库中id的值
 // var_dump($_GET);
@@ -17,7 +22,7 @@ if ($id == 0) {
 
 // 获取当前id对应的信息
 include_once 'database_login.php';
-$sql = "SELECT * FROM project WHERE id = {$id}";
+$sql = "SELECT * FROM project WHERE id = {$id} and admin = '{$admin}'";
 $res = query($link, $sql);
 $res_array = mysqli_fetch_assoc($res);
 // var_dump($res_array);

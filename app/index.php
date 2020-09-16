@@ -5,9 +5,16 @@
 // 登录数据库
 include_once 'database_login.php';
 
-// 查看总行数
-include_once 'utils.php';
-$rows = count_rows($link);
+// 启用session
+session_start();
+// 检查session
+$admin = isset($_SESSION['admin']) ? $_SESSION['admin'] : '';
+// echo $admin;
+// var_dump($_SESSION);
+
+if ($admin == null) {
+    echo "<center style='font-size:16px;'><br>请登录后再操作！</center>";
+}
 
 // 输出未完成
 $res_array = array(); //装总结果
@@ -15,8 +22,9 @@ $array_unfinish = array(); //装未完成
 $array_finished = array(); //装已完成
 
 // 遍历数据库：返回所有结果
-$sql = "select * from project";
+$sql = "select * from project where admin = '{$admin}'";
 $res = query($link, $sql);
+$rows = mysqli_num_rows($res); //查看总行数
 for ($i = 0; $i < $rows; $i++) {
     $res_array[] = mysqli_fetch_assoc($res);
 }
@@ -29,6 +37,7 @@ for ($i = 0; $i < $rows; $i++) {
         $array_finished[] = $res_array[$i];
     }
 }
+// var_dump($array_unfinish);
 
 // 引入html模板
 include_once '../html/index.html';

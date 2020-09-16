@@ -23,7 +23,9 @@
         <div class="layui-row">
             <div class="header layui-col-md-offset3 layui-col-md6">
                 <fieldset class="layui-elem-field">
-                    <legend>以下</legend>
+                    <legend>
+                        <?php echo $admin == null ? '以下' : $admin . '，您好'; ?>
+                    </legend>
                     <div style="font-size: 16px;text-align:center;" class="layui-field-box">
                         是一个清单呀
                     </div>
@@ -84,7 +86,11 @@
             </div>
         </div>
     </div>
-    <div style="margin-top:20px;color:gray;text-align: center;"><br>标签添加方法:<br>在输入的新建内容后加空格再跟标签名即可<br>现只可添加一个标签</div>
+    <div style="margin-top:20px;color:gray;text-align: center;">
+        <form method="POST" action="../app/login.php">
+            <button style="margin-bottom: 20px;" type="submit" name="btn" value="<?php echo $admin == null ? 'login_unres' : 'logout'; ?>" class="login-btn layui-btn layui-btn-radius"><?php echo $admin == null ? '登入' : '登出'; ?></button>
+        </form>
+        <br>标签添加方法:<br>在输入的新建内容后加空格再跟标签名即可<br>现只可添加一个标签<br><br></div>
     <!-- <br>小K同學 <i style="padding: 0;" class="layui-icon layui-icon-heart-fill"></i> Cactus -->
 
     <script src="../layui/layui.js"></script>
