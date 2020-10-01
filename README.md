@@ -28,11 +28,12 @@ CREATE TABLE project(
     isFinished TINYINT NOT NULL COMMENT '是否完成',
     content text NOT NULL COMMENT '内容',
     pub_time INT NOT NULL COMMENT '时间戳',
-    label varchar(10) COMMENT '标签'
+    label varchar(10) COMMENT '标签',
+    admin varchar(50) COMMENT '所有者'
 )charset utf8;
 ```
 4.Create a table named **admin** on detailed_list.
-```
+```MySQL
 CREATE TABLE admin(
     id int PRIMARY KEY auto_increment,
     admin varchar(50) NOT NULL unique COMMENT '所有者',
