@@ -7,6 +7,8 @@ English | [中文](https://github.com/Jackie1123/detailed-list/blob/master/READM
 ## What is it？
 A simple detailed-list.Help you remember trivia of live.
 ## What's new？
+2.0.1 ——> Optimize code logic.
+
 2.0.0 ——> You can login with your personal account.
 
 1.0.0 ——> Birthday of detailed-list.
@@ -25,19 +27,19 @@ CREATE DATABASE detailed_list charset=utf8;
 ```MySQL
 CREATE TABLE project(
     id int PRIMARY KEY auto_increment,
-    isFinished TINYINT NOT NULL COMMENT '是否完成',
-    content text NOT NULL COMMENT '内容',
-    pub_time INT NOT NULL COMMENT '时间戳',
-    label varchar(10) COMMENT '标签',
-    admin varchar(50) COMMENT '所有者'
+    isFinished TINYINT NOT NULL COMMENT 'Finished or not,1:finished,0:unfinish',
+    content text NOT NULL COMMENT 'content',
+    pub_time INT NOT NULL COMMENT 'time',
+    label varchar(10) COMMENT 'label',
+    admin varchar(50) COMMENT 'account'
 )charset utf8;
 ```
 4.Create a table named **admin** on detailed_list.
 ```MySQL
 CREATE TABLE admin(
     id int PRIMARY KEY auto_increment,
-    admin varchar(50) NOT NULL unique COMMENT '所有者',
-    password varchar(18) NOT NULL COMMENT '密码'
+    admin varchar(50) NOT NULL unique COMMENT 'account',
+    password varchar(18) NOT NULL COMMENT 'password'
 )charset utf8;
 ```
 5. Enter directory ```detail-list/app/```, open```database_login.php```, modify the ```MySQL address:port```, MySQL ```user``` and ```password```.
