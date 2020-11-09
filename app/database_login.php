@@ -6,7 +6,7 @@
 header('Content-type:text/html;charset=utf-8');
 
 // 连接初始化
-$link = mysqli_connect('localhost:3306', 'root', 'H*****319') or die('数据库连接失败！');
+$link = mysqli_connect('localhost:3306', 'root', '******') or die('数据库连接失败！');
 if (!$link) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
@@ -51,7 +51,7 @@ query($link, 'use detailed_list');
  *  CREATE TABLE admin(
  *     id int PRIMARY KEY auto_increment,
  *     admin varchar(50) NOT NULL unique COMMENT '所有者',
- *     password varchar(18) NOT NULL COMMENT '密码'
+ *     password varchar(50) NOT NULL COMMENT '密码'
  * )charset utf8;
  *
  * 注意：

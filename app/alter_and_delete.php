@@ -28,7 +28,7 @@ if ($delete_list) {
     } else {
         echo '数据isFinished=0设置失败';
     }
-} else if ($$finish_id == 0) {
+} else if ($finish_id == 0) {
     if (query($link, $finish_sql)) {
         echo '数据isFinished=1设置成功';
     } else {

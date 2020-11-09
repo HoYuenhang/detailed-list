@@ -9,8 +9,6 @@ include_once 'database_login.php';
 session_start();
 // 检查session
 $admin = isset($_SESSION['admin']) ? $_SESSION['admin'] : '';
-// echo $admin;
-// var_dump($_SESSION);
 
 if ($admin == null) {
     echo "<center style='font-size:16px;'><br>请登录后再操作！</center>";
@@ -33,6 +31,9 @@ for ($i = 0; $i < $rows; $i++) {
 for ($i = 0; $i < $rows; $i++) {
     if ($res_array[$i]['isFinished'] == 0) { //未完成
         $array_unfinish[] = $res_array[$i];
+        // if (count($array_unfinish) == 10) { // 十条数据
+        //     break;
+        // }
     } elseif ($res_array[$i]['isFinished'] == 1) { //已完成
         $array_finished[] = $res_array[$i];
     }
