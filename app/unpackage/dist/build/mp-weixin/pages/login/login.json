@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "登录",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-navbar": "/uview-ui/components/u-navbar/u-navbar",
+    "u-row": "/uview-ui/components/u-row/u-row",
+    "u-col": "/uview-ui/components/u-col/u-col",
+    "u-toast": "/uview-ui/components/u-toast/u-toast"
+  }
+}

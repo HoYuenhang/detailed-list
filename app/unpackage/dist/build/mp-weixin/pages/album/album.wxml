@@ -1,0 +1,1 @@
+<view><u-navbar vue-id="69a8fa60-1" is-back="{{false}}" title="相册" bind:__l="__l"></u-navbar><view class="tips" style="margin-top:50%;text-align:center;color:#a3a3a3;">正在开发中...^_^</view></view>

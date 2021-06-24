@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "相册",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-navbar": "/uview-ui/components/u-navbar/u-navbar"
+  }
+}

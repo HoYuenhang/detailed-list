@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/register/register",
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/album/album"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "detail-list",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "color": "#999",
+    "selectedColor": "#384e78",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "/static/tabbar/index.png",
+        "selectedIconPath": "/static/tabbar/index_selected.png",
+        "text": "清单"
+      },
+      {
+        "pagePath": "pages/album/album",
+        "iconPath": "/static/tabbar/album.png",
+        "selectedIconPath": "/static/tabbar/album_selected.png",
+        "text": "相册"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
