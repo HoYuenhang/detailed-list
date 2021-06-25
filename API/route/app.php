@@ -38,3 +38,5 @@ Route::get('getProject', 'Project/getProject');
 Route::post('newProject', 'Project/newProject');
 //更改项目状态
 Route::post('modifyStatus', 'Project/modifyStatus');
+//删除项目
+Route::post('doDelete', 'Project/doDelete');

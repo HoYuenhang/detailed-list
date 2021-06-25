@@ -146,15 +146,40 @@ class Project extends Base
     }
 
     /**
-     * 保存更新的资源
+     * 删除项目
      *
      * @param Request $request
      * @param int $id
-     * @return void
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function doDelete(Request $request)
     {
-        //
+//        检查token
+        $c = new checkToken();
+        $token = $c->checkResult();
+        if (!$token) {
+            return $this->create([], 'invalid token', 401);
+        }
+//        接收数据
+        $data = $request->post();
+//        验证数据完整性
+        try {
+            validate(projectValidate::class)->scene('doDelete')->check($data);
+        } catch (ValidateException $exception) {
+            return $this->create([], $exception->getError(), 406);
+        }
+//        启动事务
+        (new projectModel)->startTrans();
+        try {
+            (new projectModel)->where('listId', $data['listId'])->save(['isDelete' => 1]);
+//            提交
+            (new projectModel)->commit();
+            return $this->create(1, 'delete ok', 200);
+        } catch (\Exception $exception) {
+//            回滚
+            (new projectModel)->rollback();
+            return $this->create(0, 'delete failed:' . $exception->getMessage(), 500);
+        }
     }
 
     /**

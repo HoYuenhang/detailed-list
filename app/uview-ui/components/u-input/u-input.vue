@@ -341,6 +341,7 @@ export default {
 .u-input {
 	position: relative;
 	flex: 1;
+	background-color: white; // 自增
 	@include vue-flex;
 
 	&__input {

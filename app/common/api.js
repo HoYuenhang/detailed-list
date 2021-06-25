@@ -34,6 +34,16 @@ const api = {
 	modifyStatus: {
 		url: domain + '/modifyStatus',
 		method: 'POST'
+	},
+	// 删除项目
+	doDelete: {
+		url: domain + '/doDelete',
+		method: 'POST'
+	},
+	// 修改项目
+	doModify: {
+		url: domain + '/doModify',
+		method: 'POST'
 	}
 }
 

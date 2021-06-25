@@ -31,7 +31,8 @@ class Project extends Validate
         'checkToken' => ['uuid', 'token'],
         'getProject' => ['uuid'],
         'newProject' => ['title'],
-        'modifyStatus' => ['listId', 'isFinish']
+        'modifyStatus' => ['listId', 'isFinish'],
+        'doDelete' => ['listId']
     ];
 
     /**

@@ -4,7 +4,6 @@ namespace app;
 
 class common
 {
-
     /**
      *设置登录token  唯一性
      *

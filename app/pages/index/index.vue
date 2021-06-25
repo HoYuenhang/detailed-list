@@ -9,7 +9,7 @@
 							{{aisatsu}}
 						</view>
 						<view class="info">
-							以下是你的项目
+							是一个清单呀
 						</view>
 					</view>
 					<view class="newProject">
@@ -24,10 +24,9 @@
 				</view>
 				<view class="myProject">
 					<view v-if="unfinishCount != 0" class="unFinish">
-						<view style="margin: 15px 0;" class="line">
-							<u-divider>☀</u-divider>
-							<view style="text-align: center;font-size: 17px;color: gray;">未完成</view>
-							<u-divider>☀</u-divider>
+						<view style="margin: 15px 10px;" class="line">
+							<view style="font-size: 18px;color: gray;">未完成</view>
+							<u-line color="lightgray" margin="10px auto" />
 						</view>
 						<view v-for="(item,index) in unFinishProjectData" class="unfinishBox">
 							<view class="unfinishItem">
@@ -35,13 +34,13 @@
 								</u-icon>
 								<view class="text">{{item.title}}</view>
 								<view class="operation">
-									<view v-if="item.category" class="category">
+									<view @click="goCategory(item.category)" v-if="item.category" class="category">
 										#{{item.category}}
 									</view>
-									<view class="modify">
+									<view @click="doModify(item.listId)" class="modify">
 										修改
 									</view>
-									<view class="delete">
+									<view @click="openModal('delete',item.listId)" class="delete">
 										删除
 									</view>
 								</view>
@@ -49,10 +48,9 @@
 						</view>
 					</view>
 					<view v-if="finishCount != 0" class="finished">
-						<view style="margin: 15px 0;" class="line">
-							<u-divider>☀</u-divider>
-							<view style="text-align: center;font-size: 17px;color: gray;">已完成</view>
-							<u-divider>☀</u-divider>
+						<view style="margin: 15px 10px;" class="line">
+							<view style="font-size: 18px;color: gray;">已完成</view>
+							<u-line color="lightgray" margin="10px auto" />
 						</view>
 						<view v-for="(item,index) in finishProjectData" class="unfinishBox">
 							<view class="finishedItem">
@@ -60,13 +58,13 @@
 								</u-icon>
 								<view class="text">{{item.title}}</view>
 								<view class="operation">
-									<view v-if="item.category" class="category">
+									<view @click="goCategory(item.category)" v-if="item.category" class="category">
 										#{{item.category}}
 									</view>
-									<view class="modify">
+									<view @click="doModify(item.listId)" class="modify">
 										修改
 									</view>
-									<view class="delete">
+									<view @click="openModal('delete',item.listId)" class="delete">
 										删除
 									</view>
 								</view>
@@ -79,6 +77,9 @@
 		</u-row>
 		<u-top-tips :navbar-height="statusBarHeight + navbarHeight" ref="uTips"></u-top-tips>
 		<u-toast ref="uToast" />
+		<u-modal v-model="showDeleteModal" :show-cancel-button="true" @confirm="doDelete()" :async-close="true"
+			content="确定要删除此项吗？"></u-modal>
+		<u-back-top :scroll-top="scrollTop"></u-back-top>
 	</view>
 </template>
 
@@ -87,6 +88,7 @@
 	export default {
 		data() {
 			return {
+				scrollTop: 0,
 				span: 12,
 				offset: 0,
 				uuid: '',
@@ -106,17 +108,17 @@
 				// 提交按钮样式
 				submitBtnStyle: {
 					marginLeft: '10px',
-					backgroundColor: '#6181f3',
+					backgroundColor: '#4d8ef6',
 					color: 'white',
 					borderRadius: '10px'
 				},
 				// 提交输入框样式
 				submitInputStyle: {
 					height: '38px',
-					width: '100%',
-					// backgroundColor: 'white',
-					// borderRadius: '10px'
-				}
+					width: '100%'
+				},
+				showDeleteModal: false, // 显示删除模态框
+				opListId: '', // 需要操作的listId
 			}
 		},
 		created() {
@@ -146,11 +148,56 @@
 		onLoad() {
 			this.aisatsuInfo()
 		},
-		onPullDownRefresh() {
-			this.getProject()
-			uni.stopPullDownRefresh()
-		},
 		methods: {
+			openModal(op, listId) {
+				this.opListId = listId
+				if (op == 'delete') {
+					this.showDeleteModal = true
+				}
+				if (op == 'modify') {
+
+				}
+			},
+			// 修改项目内容
+			doModify() {
+				return
+			},
+			// 删除项目
+			doDelete() {
+				// 获取listId
+				var listId = this.opListId
+				// 发起请求
+				var doDelete = request.api.doDelete
+				var uuid = this.uuid
+				var token = this.token
+				this.$utils.request(doDelete.url, doDelete.method, {
+					listId: listId
+				}, uuid, token).then((res) => {
+					this.$refs.uToast.show({
+						title: '删除成功',
+						type: 'success',
+						duration: 1500
+					})
+					this.getProject()
+				}, (reason) => {
+					this.$refs.uToast.show({
+						title: '删除失败，请重试',
+						type: 'error',
+						duration: 1500
+					})
+				})
+				// 把要操作的opListId置空
+				this.opListId = ''
+				// 关闭Modal
+				this.showDeleteModal = false
+			},
+			// 跳转category页
+			goCategory(category) {
+				return
+				uni.navigateTo({
+					url: '../category/category?category=' + category
+				})
+			},
 			// 用户点击 完成 / 未完成
 			isFinish(listId, finish) {
 				var modifyStatus = request.api.modifyStatus
@@ -158,18 +205,9 @@
 					listId: listId,
 					isFinish: finish ? 1 : 0
 				}, this.uuid, this.token).then((res) => {
-					// console.log(res)
-					if (res.code == 200) {
-						// 发出提示音
+					// 发出提示音
 
-						this.getProject()
-					} else {
-						this.$refs.uTips.show({
-							title: '更新失败,请重试!',
-							type: 'error',
-							duration: '1500'
-						})
-					}
+					this.getProject()
 				}, (reason) => {
 					// console.log(reason)
 					this.$refs.uTips.show({
@@ -197,15 +235,13 @@
 					title: this.newProject
 				}, uuid, token).then((res) => {
 					// console.log(res)
-					if (res.code == 200) {
-						this.$refs.uToast.show({
-							title: '新建成功',
-							type: 'success',
-							duration: 1500
-						})
-						this.newProject = ''
-						this.getProject()
-					}
+					this.$refs.uToast.show({
+						title: '新建成功',
+						type: 'success',
+						duration: 1500
+					})
+					this.newProject = ''
+					this.getProject()
 				}, (reason) => {
 					this.$refs.uToast.show({
 						title: '未知错误',
@@ -217,7 +253,7 @@
 			// 问候框信息
 			aisatsuInfo() {
 				var username = uni.getStorageSync('username')
-				this.aisatsu = username
+				this.aisatsu = username ? username : '匿名用户'
 				var hour = new Date().getHours() + 1
 				if (hour >= 1 && hour <= 6) this.aisatsu += "，别熬夜"
 				if (hour > 6 && hour <= 12) this.aisatsu += "，上午好"
@@ -233,12 +269,10 @@
 					uuid: that.uuid
 				}, that.uuid, that.token).then((res) => {
 					// console.log(res)
-					if (res.code == 200) {
-						that.finishCount = res.data.finished.length
-						that.unfinishCount = res.data.unFinished.length
-						that.finishProjectData = res.data.finished
-						that.unFinishProjectData = res.data.unFinished
-					}
+					that.finishProjectData = res.data.finished
+					that.unFinishProjectData = res.data.unFinished
+					that.finishCount = res.data.finished.length
+					that.unfinishCount = res.data.unFinished.length
 				}, (reason) => {
 					uni.removeStorageSync('token')
 					this.$refs.uToast.show({
@@ -253,7 +287,14 @@
 					}, 1500)
 				})
 			},
-		}
+		},
+		onPullDownRefresh() {
+			this.getProject()
+			uni.stopPullDownRefresh()
+		},
+		onPageScroll(e) {
+			this.scrollTop = e.scrollTop;
+		},
 	}
 </script>
 
@@ -265,7 +306,7 @@
 	.header {
 		width: 100%;
 		margin: 0 auto;
-		background-color: #f6f6f7;
+		background-color: #f3f4f7;
 		border-radius: 20px;
 	}
 
@@ -283,8 +324,12 @@
 		border: 1px solid #e6e6e6;
 		padding: 15px;
 		text-align: center;
-		font-size: 17px;
+		font-size: 16px;
 	}
+
+	// .u-input {
+	// 	background-color: white;
+	// }
 
 	.newProject {
 		width: 100%;
@@ -293,16 +338,16 @@
 		padding: 0 15px 15px;
 	}
 
-	.noData {
-		width: 110px;
-		margin: 0 auto;
-		padding: 10px;
-		text-align: center;
-		font-size: 15px;
-		color: gray;
-		border-radius: 10px;
-		border: 1px solid lightgray;
-	}
+	// .noData {
+	// 	width: 110px;
+	// 	margin: 0 auto;
+	// 	padding: 10px;
+	// 	text-align: center;
+	// 	font-size: 15px;
+	// 	color: gray;
+	// 	border-radius: 10px;
+	// 	border: 1px solid lightgray;
+	// }
 
 	.finished,
 	.unFinish {
@@ -326,11 +371,12 @@
 	.unfinishItem .text {
 		color: #808080;
 		margin-left: 10px;
-		font-size: 16px;
+		font-size: 14px;
 		line-height: 24px;
 	}
 
 	.operation {
+		font-size: 12px;
 		margin-left: auto;
 		display: flex;
 		flex-direction: row;

@@ -4,7 +4,8 @@
     "pages/register/register",
     "pages/index/index",
     "pages/mine/mine",
-    "pages/album/album"
+    "pages/album/album",
+    "pages/category/category"
   ],
   "subPackages": [],
   "window": {
@@ -32,5 +33,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }
