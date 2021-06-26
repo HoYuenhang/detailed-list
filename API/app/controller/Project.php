@@ -37,12 +37,12 @@ class Project extends Base
 //        查找项目数据：已完成
         $project1 = (new projectModel)->where(['uuid' => $data['uuid'], 'isFinished' => 1, 'isDelete' => 0])
             ->order('finish_time desc')
-            ->page($this->page, 10)
+            ->page((int)$data['finishedPage'], 10)
             ->select();
 //        查找项目数据：未完成
         $project0 = (new projectModel)->where(['uuid' => $data['uuid'], 'isFinished' => 0, 'isDelete' => 0])
             ->order('create_time desc')
-            ->page($this->page, 10)
+            ->page((int)$data['unfinishPage'], 10)
             ->select();
 //        返回数据
         $data = [

@@ -46,6 +46,7 @@
 								</view>
 							</view>
 						</view>
+						<u-loadmore @loadmore="loadmore('unFinish')" margin-top="10" :status="unfinishStatus" />
 					</view>
 					<view v-if="finishCount != 0" class="finished">
 						<view style="margin: 15px 10px;" class="line">
@@ -70,8 +71,9 @@
 								</view>
 							</view>
 						</view>
+						<u-loadmore @loadmore="loadmore('finished')" margin-top="10" :status="finishedStatus" />
 					</view>
-					<u-loading :show="showLoading" mode="circle"></u-loading>
+					<!-- <u-loading :show="showLoading" mode="circle"></u-loading> -->
 				</view>
 			</u-col>
 		</u-row>
@@ -79,7 +81,8 @@
 		<u-toast ref="uToast" />
 		<u-modal v-model="showDeleteModal" :show-cancel-button="true" @confirm="doDelete()" :async-close="true"
 			content="确定要删除此项吗？"></u-modal>
-		<u-back-top :scroll-top="scrollTop"></u-back-top>
+		<u-back-top :scroll-top="scrollTop">
+		</u-back-top>
 	</view>
 </template>
 
@@ -93,7 +96,6 @@
 				offset: 0,
 				uuid: '',
 				token: '',
-				projectPage: 1, // 数据页数
 				finishCount: 0, // 已完成项目的数量
 				finishProjectData: [], // 已完成的项目
 				unfinishCount: 0, // 未完成的项目数量
@@ -119,36 +121,26 @@
 				},
 				showDeleteModal: false, // 显示删除模态框
 				opListId: '', // 需要操作的listId
+				unfinishPage: 1, // 未完成页数
+				finishedPage: 1, // 已完成页数
+				unfinishStatus: 'loadmore', // 未完成加载更多状态
+				finishedStatus: 'loadmore', // 已完成加载更多状态
 			}
-		},
-		created() {
-			// 获取客户端信息
-			var clientWidth
-			var platform
-			uni.getSystemInfo({
-				success: (res) => {
-					platform = res.platform
-					clientWidth = res.windowWidth
-				}
-			})
-			// 客户端宽大于768小于992改变输入框占比
-			if (clientWidth > 768 && clientWidth <= 992) {
-				this.span = 10
-				this.offset = 1
-			}
-			// 客户端宽大于992改变输入框占比
-			if (clientWidth > 992) {
-				this.span = 4
-				this.offset = 4
-			}
-			this.uuid = uni.getStorageSync('uuid')
-			this.token = uni.getStorageSync('token')
-			this.getProject()
-		},
-		onLoad() {
-			this.aisatsuInfo()
 		},
 		methods: {
+			// 加载更多
+			loadmore(op) {
+				if (op == 'unFinish') {
+					this.unfinishStatus = 'loading'
+					this.unfinishPage += 1
+				}
+				if (op == 'finished') {
+					this.finishedStatus = 'loading'
+					this.finishedPage += 1
+				}
+				this.getProject(op)
+			},
+			// 打开模态框
 			openModal(op, listId) {
 				this.opListId = listId
 				if (op == 'delete') {
@@ -261,19 +253,48 @@
 				if (hour > 18 && hour <= 24) this.aisatsu += "，晚上好"
 			},
 			// 获取清单数据
-			getProject() {
+			getProject(op = 'none') {
 				var that = this
 				var getProject = request.api.getProject
 				this.$utils.request(getProject.url, getProject.method, {
-					page: that.projectPage,
+					unfinishPage: op == 'none' ? 1 : that.unfinishPage,
+					finishedPage: op == 'none' ? 1 : that.finishedPage,
 					uuid: that.uuid
 				}, that.uuid, that.token).then((res) => {
 					// console.log(res)
-					that.finishProjectData = res.data.finished
-					that.unFinishProjectData = res.data.unFinished
-					that.finishCount = res.data.finished.length
-					that.unfinishCount = res.data.unFinished.length
+					// loadmore状态执行
+					if (op != 'none') {
+						console.log(true)
+						if (op == 'unFinish') {
+							console.log('unFinish')
+							that.unFinishProjectData = that.unFinishProjectData.concat(res.data.unFinished)
+						}
+						if (op == 'finished') {
+							console.log('finished')
+							that.finishProjectData = that.finishProjectData.concat(res.data.finished)
+						}
+						if (res.data.finished.length < 10 && op == 'finished') {
+							// 已完成数据少于10条
+							that.finishedStatus = 'nomore'
+						} else if (res.data.unFinished.length < 10 && op == 'unFinish') {
+							// 未完成数据少于10条
+							that.unfinishStatus = 'nomore'
+						} else {
+							// 都有数据
+							that.unfinishStatus = 'loadmore'
+							that.finishedStatus = 'loadmore'
+						}
+					} else {
+						console.log(false)
+						that.finishedStatus = 'loadmore'
+						that.unfinishStatus = 'loadmore'
+						that.unFinishProjectData = res.data.unFinished
+						that.finishProjectData = res.data.finished
+						that.finishCount = res.data.finished.length
+						that.unfinishCount = res.data.unFinished.length
+					}
 				}, (reason) => {
+					console.log(reason)
 					uni.removeStorageSync('token')
 					this.$refs.uToast.show({
 						title: 'token过期，请重新登录',
@@ -287,6 +308,33 @@
 					}, 1500)
 				})
 			},
+		},
+		created() {
+			// 获取客户端信息
+			var clientWidth
+			var platform
+			uni.getSystemInfo({
+				success: (res) => {
+					platform = res.platform
+					clientWidth = res.windowWidth
+				}
+			})
+			// 客户端宽大于768小于992改变输入框占比
+			if (clientWidth > 768 && clientWidth <= 992) {
+				this.span = 10
+				this.offset = 1
+			}
+			// 客户端宽大于992改变输入框占比
+			if (clientWidth > 992) {
+				this.span = 4
+				this.offset = 4
+			}
+			this.uuid = uni.getStorageSync('uuid')
+			this.token = uni.getStorageSync('token')
+			this.getProject()
+		},
+		onLoad() {
+			this.aisatsuInfo()
 		},
 		onPullDownRefresh() {
 			this.getProject()
