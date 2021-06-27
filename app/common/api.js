@@ -44,6 +44,11 @@ const api = {
 	doModify: {
 		url: domain + '/doModify',
 		method: 'POST'
+	},
+	// 获取某分类数据
+	getCategoryProject: {
+		url: domain + '/getCategoryProject',
+		method: 'GET'
 	}
 }
 

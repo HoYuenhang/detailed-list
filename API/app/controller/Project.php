@@ -76,7 +76,6 @@ class Project extends Base
         }
 //        分割字符串
         $split = explode(' ', $data['title']);
-//        return $this->create($split, 'Request', 200);
 //        生成listId
         $chars = md5(uniqid((string)mt_rand(), true));
         $listId = substr($chars, 0, 8) . '-'
@@ -183,13 +182,77 @@ class Project extends Base
     }
 
     /**
-     * 删除指定资源
+     * 修改项目标题
      *
-     * @param int $id
+     * @param Request $request
      * @return Response
      */
-    public function delete($id)
+    public function doModify(Request $request)
     {
-        //
+//        检查token
+        $c = new checkToken();
+        $token = $c->checkResult();
+        if (!$token) {
+            return $this->create([], 'invalid token', 401);
+        }
+//        接收数据
+        $data = $request->post();
+//        验证数据完整性
+        try {
+            validate(projectValidate::class)->scene('doModify')->check($data);
+        } catch (ValidateException $exception) {
+            return $this->create([], $exception->getError(), 406);
+        }
+//        拆分字符串
+        $modifyData = explode(' ', $data['title']);
+//        启动事务
+        (new projectModel)->startTrans();
+        try {
+            (new projectModel)->where('listId', $data['listId'])->save([
+                'title' => $modifyData[0],
+                'category' => array_key_exists('1', $modifyData) ? $modifyData[1] : null,
+            ]);
+//            提交
+            (new projectModel)->commit();
+            return $this->create(1, 'modify ok', 200);
+        } catch (\Exception $exception) {
+//            回滚
+            (new projectModel)->rollback();
+            return $this->create(0, 'modify failed:' . $exception->getMessage(), 500);
+        }
+    }
+
+    public function getCategoryProject(Request $request)
+    {
+//        检查token
+        $c = new checkToken();
+        $token = $c->checkResult();
+        if (!$token) {
+            return $this->create([], 'invalid token', 401);
+        }
+//        接收数据
+        $data = $request->get();
+//        验证数据完整性
+        try {
+            validate(projectValidate::class)->scene('getCategoryProject')->check($data);
+        } catch (ValidateException $exception) {
+            return $this->create([], $exception->getError(), 406);
+        }
+//        查找项目数据：已完成
+        $project1 = (new projectModel)
+            ->where(['category' => $data['category'], 'uuid' => $data['uuid'], 'isFinished' => 1, 'isDelete' => 0])
+            ->order('finish_time desc')
+            ->select();
+//        查找项目数据：未完成
+        $project0 = (new projectModel)
+            ->where(['category' => $data['category'], 'uuid' => $data['uuid'], 'isFinished' => 0, 'isDelete' => 0])
+            ->order('create_time desc')
+            ->select();
+//        返回数据
+        $data = [
+            'finished' => $project1,
+            'unFinished' => $project0
+        ];
+        return $this->create($data, 'request ok', 200);
     }
 }

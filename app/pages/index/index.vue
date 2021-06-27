@@ -34,10 +34,12 @@
 								</u-icon>
 								<view class="text">{{item.title}}</view>
 								<view class="operation">
-									<view @click="goCategory(item.category)" v-if="item.category" class="category">
+									<view @click="showCategoryPopUp = true,currentCategory = item.category"
+										v-if="item.category" class="category">
 										#{{item.category}}
 									</view>
-									<view @click="doModify(item.listId)" class="modify">
+									<view @click="openModal('modify',item.listId,item.title + ' ' + item.category)"
+										class="modify">
 										修改
 									</view>
 									<view @click="openModal('delete',item.listId)" class="delete">
@@ -59,10 +61,12 @@
 								</u-icon>
 								<view class="text">{{item.title}}</view>
 								<view class="operation">
-									<view @click="goCategory(item.category)" v-if="item.category" class="category">
+									<view @click="showCategoryPopUp = true,currentCategory = item.category"
+										v-if="item.category" class="category">
 										#{{item.category}}
 									</view>
-									<view @click="doModify(item.listId)" class="modify">
+									<view @click="openModal('modify',item.listId,item.title + ' ' + item.category)"
+										class="modify">
 										修改
 									</view>
 									<view @click="openModal('delete',item.listId)" class="delete">
@@ -73,16 +77,99 @@
 						</view>
 						<u-loadmore @loadmore="loadmore('finished')" margin-top="10" :status="finishedStatus" />
 					</view>
-					<!-- <u-loading :show="showLoading" mode="circle"></u-loading> -->
 				</view>
 			</u-col>
 		</u-row>
 		<u-top-tips :navbar-height="statusBarHeight + navbarHeight" ref="uTips"></u-top-tips>
 		<u-toast ref="uToast" />
-		<u-modal v-model="showDeleteModal" :show-cancel-button="true" @confirm="doDelete()" :async-close="true"
-			content="确定要删除此项吗？"></u-modal>
-		<u-back-top :scroll-top="scrollTop">
-		</u-back-top>
+		<u-modal z-index="10076" v-model="showDeleteModal" :show-cancel-button="true" @confirm="doDelete()"
+			:async-close="true" content="确定要删除此项吗？"></u-modal>
+		<u-back-top :scroll-top="scrollTop"></u-back-top>
+		<u-popup z-index="10076" height="50%" @close="showModifyWarning = false,modifyProject = ''"
+			:safe-area-inset-bottom="true" :closeable="true" mode="bottom" border-radius="40" v-model="showModifyModal">
+			<view class="modifyInfo">
+				<view class="modifyTitle">
+					修改
+				</view>
+				下方输入框输入以修改
+			</view>
+			<view class="modifyInput">
+				<view style="width: 100%;">
+					<u-input :custom-style="submitInputStyle" v-model="modifyProject" type="text" border="border"
+						placeholder="改成什么呢？" />
+				</view>
+				<u-button :custom-style="submitBtnStyle" @click="doModify" shape="square" :ripple="true">
+					修改</u-button>
+			</view>
+			<view v-if="showModifyWarning" class="modifyInputNoData">
+				输入框不能为空!
+			</view>
+			<view :style="!showModifyWarning ? 'padding: 8px 25px;color: gray;' : 'padding: 0px 25px;color: gray;'">
+				需要添加标签用空格隔开即可，现只可添加一个标签
+				<text>\n例：复习日语 学习</text>
+			</view>
+		</u-popup>
+		<u-popup height="85%" @open="getCategoryProject"
+			@close="showCategoryPopUp = false,currentCategory = '',categoryFinishData = [],categoryUnFinishData = [],getProject()"
+			:safe-area-inset-bottom="true" :closeable="true" mode="bottom" border-radius="40"
+			v-model="showCategoryPopUp">
+			<view style="z-index: 1;position: fixed;top: 0;width: 100%;background-color: white;height: 40px;">
+
+			</view>
+			<view class="categoryInfo">
+				<view class="categoryTitle">
+					标签 #{{currentCategory}}
+				</view>
+				以下是 {{currentCategory}} 标签下所有的项目
+			</view>
+			<view class="categoryProject">
+				<view class="unFinish">
+					<view style="margin: 15px 10px;" class="line">
+						<view style="font-size: 18px;color: gray;">未完成</view>
+						<u-line color="lightgray" margin="10px auto" />
+					</view>
+					<view v-for="(item,index) in categoryUnFinishData" class="unfinishBox">
+						<view class="unfinishItem">
+							<u-icon @click="isFinish(item.listId,true)" size="18px" color="gray" name="star">
+							</u-icon>
+							<view class="text">{{item.title}}</view>
+							<view class="operation">
+								<view @click="openModal('modify',item.listId,item.title + ' ' + item.category)"
+									class="modify">
+									修改
+								</view>
+								<view @click="openModal('delete',item.listId)" class="delete">
+									删除
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="finished">
+					<view style="margin: 15px 10px;" class="line">
+						<view style="font-size: 18px;color: gray;">已完成</view>
+						<u-line color="lightgray" margin="10px auto" />
+					</view>
+					<view v-for="(item,index) in categoryFinishData" class="unfinishBox">
+						<view class="finishedItem">
+							<u-icon @click="isFinish(item.listId,false)" size="18px" color="gray" name="star-fill">
+							</u-icon>
+							<view class="text">{{item.title}}</view>
+							<view class="operation">
+								<view @click="openModal('modify',item.listId,item.title + ' ' + item.category)"
+									class="modify">
+									修改
+								</view>
+								<view @click="openModal('delete',item.listId)" class="delete">
+									删除
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<u-loadmore margin-bottom="20" status="nomore" />
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -102,6 +189,7 @@
 				unFinishProjectData: [], // 未完成的项目
 				aisatsu: '', // 打招呼
 				newProject: '', // 新建项目输入框
+				modifyProject: '', // 修改项目输入框
 				showLoading: false, // 加载动画
 				// 状态栏高度，H5中，此值为0，因为H5不可操作状态栏
 				statusBarHeight: uni.getSystemInfoSync().statusBarHeight,
@@ -119,15 +207,46 @@
 					height: '38px',
 					width: '100%'
 				},
+				showModifyModal: false, // 显示修改弹出层
 				showDeleteModal: false, // 显示删除模态框
+				showModifyWarning: false, // 显示修改输入框错误信息
 				opListId: '', // 需要操作的listId
 				unfinishPage: 1, // 未完成页数
 				finishedPage: 1, // 已完成页数
 				unfinishStatus: 'loadmore', // 未完成加载更多状态
 				finishedStatus: 'loadmore', // 已完成加载更多状态
+				showCategoryPopUp: false, // 显示分类popup
+				currentCategory: '', // 用户点击的分类
+				categoryUnFinishData: [], // 分类popup中未完成数据
+				categoryFinishData: [], // 分类popup中已完成数据
 			}
 		},
 		methods: {
+			// 获取某分类数据
+			getCategoryProject() {
+				var getCategoryProject = request.api.getCategoryProject
+				var uuid = this.uuid
+				var token = this.token
+				uni.showLoading({
+					title: '加载中...'
+				})
+				this.$utils.request(getCategoryProject.url, getCategoryProject.method, {
+					category: this.currentCategory,
+					uuid: uuid
+				}, uuid, token).then((res) => {
+					this.categoryUnFinishData = res.data.unFinished
+					this.categoryFinishData = res.data.finished
+					uni.hideLoading()
+				}, (reason) => {
+					console.log(reason)
+					uni.hideLoading()
+					this.$refs.uToast.show({
+						title: '获取失败，请重试',
+						type: 'error',
+						duration: 1500
+					})
+				})
+			},
 			// 加载更多
 			loadmore(op) {
 				if (op == 'unFinish') {
@@ -141,21 +260,56 @@
 				this.getProject(op)
 			},
 			// 打开模态框
-			openModal(op, listId) {
+			openModal(op, listId, title = '') {
 				this.opListId = listId
 				if (op == 'delete') {
 					this.showDeleteModal = true
 				}
 				if (op == 'modify') {
-
+					this.modifyProject = title
+					this.showModifyModal = true
 				}
 			},
 			// 修改项目内容
-			doModify() {
-				return
+			doModify(op) {
+				// 获取listId
+				var listId = this.opListId
+				// 验证输入框数据
+				if (this.modifyProject == '') {
+					this.showModifyWarning = true
+					return
+				}
+				// 发起请求
+				var doModify = request.api.doModify
+				var uuid = this.uuid
+				var token = this.token
+				this.$utils.request(doModify.url, doModify.method, {
+					listId: listId,
+					title: this.modifyProject
+				}, uuid, token).then((res) => {
+					this.showModifyModal = false
+					// 分类操作时执行
+					if (this.currentCategory != '') {
+						this.getCategoryProject()
+					} else {
+						this.getProject()
+					}
+					this.$refs.uToast.show({
+						title: '修改成功',
+						type: 'success',
+						duration: 1500
+					})
+				}, (reason) => {
+					console.log(reason)
+					this.$refs.uToast.show({
+						title: '修改失败，请重试',
+						type: 'error',
+						duration: 1500
+					})
+				})
 			},
 			// 删除项目
-			doDelete() {
+			doDelete(op) {
 				// 获取listId
 				var listId = this.opListId
 				// 发起请求
@@ -165,12 +319,17 @@
 				this.$utils.request(doDelete.url, doDelete.method, {
 					listId: listId
 				}, uuid, token).then((res) => {
+					// 分类操作时执行
+					if (this.currentCategory != '') {
+						this.getCategoryProject()
+					} else {
+						this.getProject()
+					}
 					this.$refs.uToast.show({
 						title: '删除成功',
 						type: 'success',
 						duration: 1500
 					})
-					this.getProject()
 				}, (reason) => {
 					this.$refs.uToast.show({
 						title: '删除失败，请重试',
@@ -183,13 +342,6 @@
 				// 关闭Modal
 				this.showDeleteModal = false
 			},
-			// 跳转category页
-			goCategory(category) {
-				return
-				uni.navigateTo({
-					url: '../category/category?category=' + category
-				})
-			},
 			// 用户点击 完成 / 未完成
 			isFinish(listId, finish) {
 				var modifyStatus = request.api.modifyStatus
@@ -199,7 +351,12 @@
 				}, this.uuid, this.token).then((res) => {
 					// 发出提示音
 
-					this.getProject()
+					// 分类操作时执行
+					if (this.currentCategory != '') {
+						this.getCategoryProject()
+					} else {
+						this.getProject()
+					}
 				}, (reason) => {
 					// console.log(reason)
 					this.$refs.uTips.show({
@@ -212,6 +369,7 @@
 			},
 			// 新建项目
 			submitNewProject() {
+				// 验证输入框数据
 				if (this.newProject == '') {
 					this.$refs.uTips.show({
 						title: '输入框不能为空',
@@ -256,21 +414,22 @@
 			getProject(op = 'none') {
 				var that = this
 				var getProject = request.api.getProject
+				uni.showLoading({
+					title: '加载中...'
+				})
 				this.$utils.request(getProject.url, getProject.method, {
 					unfinishPage: op == 'none' ? 1 : that.unfinishPage,
 					finishedPage: op == 'none' ? 1 : that.finishedPage,
 					uuid: that.uuid
 				}, that.uuid, that.token).then((res) => {
 					// console.log(res)
+					uni.stopPullDownRefresh()
 					// loadmore状态执行
 					if (op != 'none') {
-						console.log(true)
 						if (op == 'unFinish') {
-							console.log('unFinish')
 							that.unFinishProjectData = that.unFinishProjectData.concat(res.data.unFinished)
 						}
 						if (op == 'finished') {
-							console.log('finished')
 							that.finishProjectData = that.finishProjectData.concat(res.data.finished)
 						}
 						if (res.data.finished.length < 10 && op == 'finished') {
@@ -285,7 +444,9 @@
 							that.finishedStatus = 'loadmore'
 						}
 					} else {
-						console.log(false)
+						// 无op时执行
+						that.unfinishPage = 1
+						that.finishedPage = 1
 						that.finishedStatus = 'loadmore'
 						that.unfinishStatus = 'loadmore'
 						that.unFinishProjectData = res.data.unFinished
@@ -293,8 +454,10 @@
 						that.finishCount = res.data.finished.length
 						that.unfinishCount = res.data.unFinished.length
 					}
+					uni.hideLoading()
 				}, (reason) => {
-					console.log(reason)
+					uni.stopPullDownRefresh()
+					uni.hideLoading()
 					uni.removeStorageSync('token')
 					this.$refs.uToast.show({
 						title: 'token过期，请重新登录',
@@ -308,6 +471,12 @@
 					}, 1500)
 				})
 			},
+		},
+		onPullDownRefresh() {
+			this.getProject()
+		},
+		onPageScroll(e) {
+			this.scrollTop = e.scrollTop;
 		},
 		created() {
 			// 获取客户端信息
@@ -335,13 +504,6 @@
 		},
 		onLoad() {
 			this.aisatsuInfo()
-		},
-		onPullDownRefresh() {
-			this.getProject()
-			uni.stopPullDownRefresh()
-		},
-		onPageScroll(e) {
-			this.scrollTop = e.scrollTop;
 		},
 	}
 </script>
@@ -375,27 +537,12 @@
 		font-size: 16px;
 	}
 
-	// .u-input {
-	// 	background-color: white;
-	// }
-
 	.newProject {
 		width: 100%;
 		display: flex;
 		flex-direction: row;
 		padding: 0 15px 15px;
 	}
-
-	// .noData {
-	// 	width: 110px;
-	// 	margin: 0 auto;
-	// 	padding: 10px;
-	// 	text-align: center;
-	// 	font-size: 15px;
-	// 	color: gray;
-	// 	border-radius: 10px;
-	// 	border: 1px solid lightgray;
-	// }
 
 	.finished,
 	.unFinish {
@@ -445,5 +592,33 @@
 		padding: 2px 5px;
 		border: 1px solid #C9C9C9;
 		border-radius: 10px;
+	}
+
+	.categoryTitle,
+	.modifyTitle {
+		padding: 0 0 10px;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	.categoryInfo,
+	.modifyInfo {
+		font-size: 16px;
+		padding: 40px 25px 0;
+	}
+
+	.modifyInput {
+		padding: 20px 25px 0;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.modifyInputNoData {
+		padding: 10px 15px 5px;
+		color: red;
+	}
+
+	.categoryProject {
+		padding: 0 15px;
 	}
 </style>

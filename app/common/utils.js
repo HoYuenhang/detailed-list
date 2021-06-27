@@ -1,9 +1,6 @@
 // 封装异步请求
 function request(url, method, data, uuid, token) {
 	return new Promise((resolve, reject) => {
-		uni.showLoading({
-			title: '加载中...'
-		})
 		uni.request({
 			url: url,
 			header: {
@@ -34,7 +31,6 @@ function request(url, method, data, uuid, token) {
 				reject(result)
 			},
 			complete: () => {
-				uni.hideLoading()
 				// console.log('请求终了')
 			}
 		})

@@ -19,7 +19,8 @@ class Project extends Validate
         'title' => 'require',
         'content' => 'require',
         'listId' => 'require',
-        'isFinish' => 'require'
+        'isFinish' => 'require',
+        'category' => 'require'
     ];
 
     /**
@@ -32,7 +33,9 @@ class Project extends Validate
         'getProject' => ['uuid'],
         'newProject' => ['title'],
         'modifyStatus' => ['listId', 'isFinish'],
-        'doDelete' => ['listId']
+        'doDelete' => ['listId'],
+        'doModify' => ['listId', 'title'],
+        'getCategoryProject' => ['uuid', 'category']
     ];
 
     /**
@@ -47,6 +50,7 @@ class Project extends Validate
         'title' => 'no title',
         'content' => 'no content',
         'listId' => 'no listId',
-        'isFinish' => 'no isFinish'
+        'isFinish' => 'no isFinish',
+        'category' => 'no category'
     ];
 }

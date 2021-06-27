@@ -99,26 +99,29 @@
 			freeLogin(uuid, token) {
 				// 发起请求
 				var freeLogin = request.api.freeLogin
+				uni.showLoading({
+					title: '加载中...'
+				})
 				this.$utils.request(freeLogin.url, freeLogin.method, {
 					uuid: this.uuid,
 					token: this.token
 				}).then((res) => {
 					// 请求成功
-					if (res.code == 200) {
-						this.$refs.uToast.show({
-							title: '登录成功',
-							type: 'success',
-							duration: 1500
+					uni.hideLoading()
+					this.$refs.uToast.show({
+						title: '登录成功',
+						type: 'success',
+						duration: 1500
+					})
+					// 跳转到首页
+					setTimeout(() => {
+						uni.switchTab({
+							url: '../index/index'
 						})
-						// 跳转到首页
-						setTimeout(() => {
-							uni.switchTab({
-								url: '../index/index'
-							})
-						}, 1500)
-					}
+					}, 1500)
 				}, (reason) => {
 					// 请求失败
+					uni.hideLoading()
 					if (reason.code == 401) {
 						uni.removeStorageSync('token')
 						this.$refs.uToast.show({
@@ -151,33 +154,36 @@
 				uni.vibrateShort()
 				// 发起请求
 				var login = request.api.login
+				uni.showLoading({
+					title: '加载中...'
+				})
 				this.$utils.request(login.url, login.method, {
 					username: this.username,
 					password: md5.hex_md5(this.password)
 				}).then((res) => {
 					// console.log(res)
 					// 请求结果：成功
-					if (res.code == 200) {
-						this.$refs.uToast.show({
-							title: '登录成功',
-							type: 'success',
-							duration: 1500
+					uni.hideLoading()
+					this.$refs.uToast.show({
+						title: '登录成功',
+						type: 'success',
+						duration: 1500
+					})
+					// 设置本地储存
+					uni.setStorageSync('username', res.data.username)
+					uni.setStorageSync('uuid', res.data.uuid)
+					uni.setStorageSync('token', res.data.token)
+					// 跳转到首页
+					setTimeout(() => {
+						uni.switchTab({
+							url: '../index/index'
 						})
-						// 设置本地储存
-						uni.setStorageSync('username', res.data.username)
-						uni.setStorageSync('uuid', res.data.uuid)
-						uni.setStorageSync('token', res.data.token)
-						// 跳转到首页
-						setTimeout(() => {
-							uni.switchTab({
-								url: '../index/index'
-							})
-						}, 1500)
-					}
+					}, 1500)
 				}, (reason) => {
 					// console.log(reason)
 					// 请求结果：失败
 					// 网络错误
+					uni.hideLoading()
 					if (reason.code == 500) {
 						this.$refs.uToast.show({
 							title: '网络错误',

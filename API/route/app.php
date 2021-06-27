@@ -40,3 +40,7 @@ Route::post('newProject', 'Project/newProject');
 Route::post('modifyStatus', 'Project/modifyStatus');
 //删除项目
 Route::post('doDelete', 'Project/doDelete');
+//删除项目
+Route::post('doModify', 'Project/doModify');
+//获取某分类项目数据
+Route::get('getCategoryProject', 'Project/getCategoryProject');
